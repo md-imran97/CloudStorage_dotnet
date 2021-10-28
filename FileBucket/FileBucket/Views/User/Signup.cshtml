@@ -1,0 +1,28 @@
+﻿@model FileBucket.Models.user
+@{
+    ViewBag.Title = "Signup";
+}
+
+<h2>Signup Form</h2>
+<a href="/Home/Index" class="btn btn-primary">Home</a>
+<a href="/User/Signin" class="btn btn-primary">Signin</a>
+<h4 style="color:red">@ViewBag.error</h4>
+<h4 style="color:green">@ViewBag.msg</h4>
+<form action="/User/Signup" method="post">
+    Name: <input type="text" name="name" class="form-control" placeholder="Enter your name">
+    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+    <br />
+    Phone: <input type="text" name="phone" class="form-control" placeholder="Enter your phone number">
+    @Html.ValidationMessageFor(m => m.phone, "", new { @class = "text-danger" })
+    <br />
+    Password: <input type="password" name="password" class="form-control" placeholder="Enter your password">
+    @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+    <br />
+    Type:
+    <select name="type">
+        <option value="1">General user</option>
+        <option value="0">Admin</option>
+    </select>
+    <br /><br />
+    <input type="submit" value="Signup" class="btn btn-success">
+</form>

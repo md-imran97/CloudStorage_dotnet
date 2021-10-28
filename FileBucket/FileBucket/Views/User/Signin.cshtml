@@ -1,0 +1,19 @@
+﻿@model FileBucket.UtilityModels.UserSignin
+@{
+    ViewBag.Title = "Signin";
+}
+
+<h2>Signin</h2>
+<a href="/Home/Index" class="btn btn-primary">Home</a>
+<a href="/User/Signup" class="btn btn-primary">Signup</a>
+<h4 style="color:red">@ViewBag.msg</h4>
+<form action="/User/Signin" method="post">
+
+    Phone: <input type="text" name="phone" class="form-control" placeholder="Enter your phone number">
+    @Html.ValidationMessageFor(m => m.phone, "", new { @class = "text-danger" })
+    <br />
+    Password: <input type="password" name="password" class="form-control" placeholder="Enter your password">
+    @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+    <br /><br />
+    <input type="submit" value="Signin" class="btn btn-success">
+</form>

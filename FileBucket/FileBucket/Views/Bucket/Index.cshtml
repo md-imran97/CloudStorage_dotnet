@@ -1,0 +1,73 @@
+﻿@model List<FileBucket.Models.cloud>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>form session parent:@Session["parent"]</p>
+<h4>Upload File</h4>
+@using (Html.BeginForm("Upload", "Bucket", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table class="table table-condensed">
+        <tr>
+            <td><input type="file" name="file" /></td>
+            <td><input type="submit" value="Upload" class="btn btn-primary" /></td>
+        </tr>
+    </table>
+    <input type="number" name="parent" value="@ViewBag.parent" hidden/>
+}
+<h4>Create Folder</h4>
+<form action="/Bucket/CreateFolder" method="post">
+    <table class="table table-condensed">
+        <tr>
+            <td><input type="text" name="folderName" class="form-control" placeholder="Enter folder name"></td>
+            <td><input type="submit" value="Create Folder" class="btn btn-success"></td>
+        </tr>
+    </table>
+    <input type="number" name="parent" value="@ViewBag.parent" hidden />
+</form>
+<table class="table table-striped">
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Date and Time</th>
+        <th>Type</th>
+        <th>Size</th>
+
+
+
+    </tr>
+    @foreach (var file in Model)
+    {
+    <tr>
+        @if(file.type==1)
+        {
+            <td> <img src="/icon/file.png" alt="File image" style="width:50px;height:50px;"> </td>
+        }
+        else
+        {
+            <td> <img src="/icon/folder.png" alt="Folder image" style="width:50px;height:50px;"> </td>
+        }
+        <td>@file.name</td>
+        <td>@file.time</td>
+        <td>
+            @if (file.type == 1)
+            {<span>File</span> }
+            else
+            { <span>Folder</span>}
+    </td>
+    <td>@(((float)file.size / 1048576).ToString("0.00")) MB</td>
+    @if (file.type == 1)
+    {
+        <td><a class="btn btn-primary" href="/Bucket/Download?parent=@(file.parent)&child=@(file.child)&name=@(file.name)">Download</a></td>
+    }
+    else
+    {
+        <td><a class="btn btn-primary" href="/Bucket/Index?parent=@(file.child)">Brows folder</a></td>
+    }
+    <td><a class="btn btn-primary" href="/Bucket/Delete?parent=@(file.parent)&child=@(file.child)">Delete</a></td>
+
+    </tr>
+    }
+</table>

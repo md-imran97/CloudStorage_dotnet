@@ -1,0 +1,24 @@
+﻿@model List<FileBucket.Models.package>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Price</th>
+    </tr>
+    @foreach(var data in Model)
+    {
+    <tr>
+        <td>@data.id</td>
+        <td>@data.name</td>
+        <td>@data.size MB</td>
+        <td>@data.price $</td>
+    </tr>
+    }
+</table>
