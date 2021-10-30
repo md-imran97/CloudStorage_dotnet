@@ -229,6 +229,9 @@
     <Content Include="Views\Bucket\Download.cshtml" />
     <Content Include="Views\Bucket\CreateFolder.cshtml" />
     <Content Include="Views\Bucket\Delete.cshtml" />
+    <Content Include="Views\Bucket\SharePoint.cshtml" />
+    <Content Include="Views\Bucket\StorageInfo.cshtml" />
+    <Content Include="Views\Bucket\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

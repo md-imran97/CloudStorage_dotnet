@@ -62,5 +62,13 @@ namespace FileBucket.HelperFunction
             db.SaveChanges();
 
         }
+        
+        public static user getUser(int id)
+        {
+            var entity = (from e in db.users
+                          where id == e.id
+                          select e).FirstOrDefault();
+            return entity;
+        }
     }
 }

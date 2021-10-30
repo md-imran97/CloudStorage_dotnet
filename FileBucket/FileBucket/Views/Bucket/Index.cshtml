@@ -1,11 +1,9 @@
 ﻿@model List<FileBucket.Models.cloud>
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+<h4>Space Size : @(((float)ViewBag.spaceSize / 1048576).ToString("0.00")) MB</h4>
+<h4>Used space : @(((float)ViewBag.usedSpace / 1048576).ToString("0.00")) MB</h4>
+<h4>Available Space : @(((float)ViewBag.availableSpace / 1048576).ToString("0.00")) MB</h4><br />
 
-<p>form session parent:@Session["parent"]</p>
 <h4>Upload File</h4>
 @using (Html.BeginForm("Upload", "Bucket", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -15,7 +13,7 @@
             <td><input type="submit" value="Upload" class="btn btn-primary" /></td>
         </tr>
     </table>
-    <input type="number" name="parent" value="@ViewBag.parent" hidden/>
+    <input type="number" name="parent" value="@ViewBag.parent" hidden />
 }
 <h4>Create Folder</h4>
 <form action="/Bucket/CreateFolder" method="post">
@@ -26,48 +24,96 @@
         </tr>
     </table>
     <input type="number" name="parent" value="@ViewBag.parent" hidden />
-</form>
+</form><br />
+
+<h4><img src="/icon/folder.png" alt="Folder image" style="width:30px;height:30px;"> @ViewBag.title</h4><br />
 <table class="table table-striped">
     <tr>
-        <th></th>
+        <th>##</th>
         <th>Name</th>
         <th>Date and Time</th>
         <th>Type</th>
         <th>Size</th>
+        <th>##</th>
+        <th>##</th>
+        <th>Status</th>
+        <th>##</th>
 
 
 
     </tr>
+    @{ int i = 0; }
     @foreach (var file in Model)
     {
-    <tr>
-        @if(file.type==1)
-        {
-            <td> <img src="/icon/file.png" alt="File image" style="width:50px;height:50px;"> </td>
-        }
-        else
-        {
-            <td> <img src="/icon/folder.png" alt="Folder image" style="width:50px;height:50px;"> </td>
-        }
-        <td>@file.name</td>
-        <td>@file.time</td>
-        <td>
+        i++;
+        <tr>
             @if (file.type == 1)
-            {<span>File</span> }
+            {
+                <td> <img src="/icon/file.png" alt="File image" style="width:50px;height:50px;"> </td>
+            }
             else
-            { <span>Folder</span>}
-    </td>
-    <td>@(((float)file.size / 1048576).ToString("0.00")) MB</td>
-    @if (file.type == 1)
-    {
-        <td><a class="btn btn-primary" href="/Bucket/Download?parent=@(file.parent)&child=@(file.child)&name=@(file.name)">Download</a></td>
-    }
-    else
-    {
-        <td><a class="btn btn-primary" href="/Bucket/Index?parent=@(file.child)">Brows folder</a></td>
-    }
-    <td><a class="btn btn-primary" href="/Bucket/Delete?parent=@(file.parent)&child=@(file.child)">Delete</a></td>
+            {
+                <td> <img src="/icon/folder.png" alt="Folder image" style="width:50px;height:50px;"> </td>
+            }
+            <td>@file.name</td>
+            <td>@file.time</td>
+            <td>
+                @if (file.type == 1)
+                {<span>File</span> }
+                else
+                { <span>Folder</span>}
+            </td>
+            <td>@(((float)file.size / 1048576).ToString("0.00")) MB</td>
+            @if (file.type == 1)
+            {
+                <td><a class="btn btn-success" href="/Bucket/Download?parent=@(file.parent)&child=@(file.child)&name=@(file.name)">Download</a></td>
+            }
+            else
+            {
+                <td><a class="btn btn-success" href="/Bucket/Index?parent=@(file.child)">Brows folder</a></td>
+            }
+            <td><a class="btn btn-danger" href="/Bucket/Delete?parent=@(file.parent)&child=@(file.child)">Delete</a></td>
 
-    </tr>
+            <span id="@(i)" hidden>http://localhost:52458/Bucket/SharePoint?root=@(ViewBag.root)&parent=@(file.parent)&child=@(file.child)</span>
+
+            @if (file.share == 0)
+            {
+                <td style="color:forestgreen;font-weight:bold">Private</td>
+                <td><a class="btn btn-primary" href="/Bucket/Share?parent=@(file.parent)&child=@(file.child)&shareType=1">Share it</a></td>
+
+            }
+            else
+            {
+                <td style="color:red;font-weight:bold">Shared</td>
+                <td><a class="btn btn-primary" href="/Bucket/Share?parent=@(file.parent)&child=@(file.child)&shareType=0">Private it</a></td>
+                <td><button onclick="copyToClipboard('@(i)')" class="btn btn-info">Copy link</button></td>
+            }
+
+        </tr>
     }
 </table>
+<script>
+    function copyToClipboard(elementId) {
+
+        // Create a "hidden" input
+        var aux = document.createElement("input");
+
+        // Assign it the value of the specified element
+        var link = document.getElementById(elementId).innerHTML;
+        var cleanLink = new RegExp("&amp;", 'g');
+        aux.setAttribute("value", link.replace(cleanLink, "&"));
+
+        // Append it to the body
+        document.body.appendChild(aux);
+
+        // Highlight its content
+        aux.select();
+
+        // Copy the highlighted text
+        document.execCommand("copy");
+
+        // Remove it from the body
+        document.body.removeChild(aux);
+
+    }
+</script>

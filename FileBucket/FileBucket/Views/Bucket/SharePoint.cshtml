@@ -1,0 +1,50 @@
+﻿@model List<FileBucket.Models.cloud>
+@{
+    ViewBag.Title = "SharePoint";
+}
+
+<h2>SharePoint</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>##</th>
+        <th>Name</th>
+        <th>Date and Time</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>##</th>
+    </tr>
+    @{ int i = 0; }
+    @foreach (var file in Model)
+    {
+        i++;
+        <tr>
+            @if (file.type == 1)
+            {
+                <td> <img src="/icon/file.png" alt="File image" style="width:50px;height:50px;"> </td>
+            }
+            else
+            {
+                <td> <img src="/icon/folder.png" alt="Folder image" style="width:50px;height:50px;"> </td>
+            }
+            <td>@file.name</td>
+            <td>@file.time</td>
+            <td>
+                @if (file.type == 1)
+                {<span>File</span> }
+                else
+                { <span>Folder</span>}
+            </td>
+            <td>@(((float)file.size / 1048576).ToString("0.00")) MB</td>
+            @if (file.type == 1)
+            {
+                <td><a class="btn btn-success" href="/Bucket/sharedDownload?root=@(file.root)&parent=@(file.parent)&child=@(file.child)&name=@(file.name)" >Download</a></td>
+            }
+            else
+            {
+                <td><a class="btn btn-success" href="/Bucket/SharePoint?root=@(file.root)&parent=@(file.parent)&child=@(file.child)">Brows folder</a></td>
+            }
+
+        </tr>
+    }
+</table>
