@@ -1,0 +1,26 @@
+﻿@model FileBucket.Models.user
+@{
+    /**/
+
+    ViewBag.Title = "Profile";
+}
+<a href="/Bucket/Index?parent=@Model.id" class="btn btn-primary">Bucket</a>
+<h2>Profile</h2>
+<a href="/User/EditProfile" class="btn btn-primary">Edit Profile</a>
+@if (Model.type == 1)
+{
+    <a href="/User/Delete" class="btn btn-danger">Delete Account</a>
+}
+
+<p>Name : @Model.name</p>
+<p>Phone : @Model.phone</p><br />
+@if (Model.type == 1)
+{
+    <h2>Package</h2>
+    <p>Name : @Model.package.name</p>
+    <p>Storage Space : @(((float)Model.package.size / 1048576).ToString("0.00")) MB</p>
+    <p>Subscription Fee : @(Model.package.price)$</p>
+    <a href="/Package/Store" class="btn btn-primary">Buy Package</a>
+}
+
+

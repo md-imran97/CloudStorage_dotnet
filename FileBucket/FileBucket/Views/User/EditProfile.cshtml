@@ -1,0 +1,25 @@
+﻿@model FileBucket.Models.user
+@{
+    ViewBag.Title = "EditProfile";
+}
+
+<h2>EditProfile</h2>
+<a href="/User/Profile" class="btn btn-primary">Profile</a>
+<a href="/Bucket/Index?parent=@Model.id" class="btn btn-primary">Bucket</a>
+<form action="/User/EditProfile" method="post">
+    Name: <input type="text" name="name" class="form-control" value="@Model.name">
+    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
+    <br />
+    <input type="hidden" name="phone" class="form-control" value="@Model.phone">
+    Password: <input type="password" name="password" class="form-control" value="@Model.password">
+    @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+    <br />
+    <input type="hidden" name="type" class="form-control" value=@Model.type hidden>
+    <input type="hidden" name="id" class="form-control" value=@Model.id hidden>
+   
+    <input type="hidden" name="packageId" class="form-control" value=@Model.package.id hidden>
+    <input type="hidden" name="status" class="form-control" value=@Model.status hidden>
+    <input type="hidden" name="keyId" class="form-control" value=@Model.keyId hidden>
+    
+    <input type="submit" value="Update" class="btn btn-success">
+</form>

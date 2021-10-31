@@ -11,17 +11,22 @@ namespace FileBucket.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class package
     {
         public package()
         {
             this.users = new HashSet<user>();
         }
-    
+
+        [Required(ErrorMessage = "ID required")]
         public int id { get; set; }
+        [Required(ErrorMessage = "Name required")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Size required")]
         public int size { get; set; }
+        [Required(ErrorMessage = "Price required")]
         public int price { get; set; }
     
         public virtual ICollection<user> users { get; set; }

@@ -70,5 +70,49 @@ namespace FileBucket.HelperFunction
                           select e).FirstOrDefault();
             return entity;
         }
+
+        public static void updateUser(user u)
+        {
+            var entity = getUser(u.id);
+            entity.name = u.name;
+            entity.password = u.password;
+            db.SaveChanges();
+        }
+
+        public static void removeUser(int id)
+        {
+            var entity = getUser(id);
+            db.users.Remove(entity);
+            db.SaveChanges();
+        }
+
+        public static List<user> getAllUser()
+        {
+            var allUser = (from e in db.users
+                           select e).ToList();
+            return allUser;
+        }
+
+        public static void adminApproval(int root)
+        {
+            var entity = getUser(root);
+            entity.status = 1;
+            db.SaveChanges();
+        }
+
+        public static void userPackageUpdate(user u)
+        {
+            var entity = getUser(u.id);
+            entity.packageId = u.packageId;
+            db.SaveChanges();
+        }
+
+        public static int getUserType(string phone)
+        {
+            var entity = (from e in db.users
+                          where phone == e.phone
+                          select e).FirstOrDefault();
+            return entity.type;
+        }
     }
 }

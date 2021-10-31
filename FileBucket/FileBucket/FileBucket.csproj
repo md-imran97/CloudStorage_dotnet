@@ -134,7 +134,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperFunction\UserAuth.cs" />
     <Compile Include="HelperFunction\BucketHelper.cs" />
+    <Compile Include="HelperFunction\PackageHelper.cs" />
     <Compile Include="HelperFunction\UserHelper.cs" />
     <Compile Include="Models\cloud.cs">
       <DependentUpon>ModelData.tt</DependentUpon>
@@ -222,8 +224,6 @@
     <Content Include="Views\User\Signup.cshtml" />
     <Content Include="Views\Package\Index.cshtml" />
     <Content Include="Views\User\Signin.cshtml" />
-    <Content Include="Views\User\Update.cshtml" />
-    <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\ControlPanel\Index.cshtml" />
     <Content Include="Views\Bucket\Index.cshtml" />
     <Content Include="Views\Bucket\Download.cshtml" />
@@ -232,6 +232,13 @@
     <Content Include="Views\Bucket\SharePoint.cshtml" />
     <Content Include="Views\Bucket\StorageInfo.cshtml" />
     <Content Include="Views\Bucket\NotFound.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\Package\Store.cshtml" />
+    <Content Include="Views\Package\CreatePackage.cshtml" />
+    <Content Include="Views\Package\EditPackage.cshtml" />
+    <Content Include="Views\Package\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

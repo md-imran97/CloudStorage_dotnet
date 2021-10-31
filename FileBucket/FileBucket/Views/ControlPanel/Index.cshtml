@@ -1,7 +1,56 @@
-﻿
+﻿@model List<FileBucket.Models.user>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Control panel";
 }
 
 <h2>Index</h2>
+<a href="/Package/Index" class="btn btn-primary">Packages</a>
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Package</th>
+        <th>##</th>
+        <th>##</th>
+    </tr>
+    
+    @foreach (var entity in Model)
+    {
+    <tr>
+        <td>@entity.id</td>
+        <td>@entity.name</td>
 
+        @if (entity.type == 1)
+        {
+            <td>General User</td>
+        }
+        else
+        {
+            <td>Admin</td>
+        }
+
+        @if (entity.status == 1)
+        {
+            <td style="color:forestgreen">Aproved</td>
+        }
+        else
+        {
+            <td style="color:red">Pending</td>
+        }
+
+        <td>@entity.package.name</td>
+        @if (entity.status == 0)
+        {
+            <td><a href="/ControlPanel/Approval?root=@entity.id" class="btn btn-primary">Aprove</a></td>
+        }
+
+        @if (entity.type == 0 && entity.id != ViewBag.root)
+        {
+            <td><a href="/ControlPanel/Delete?root=@entity.id" class="btn btn-danger">Delete</a></td>
+        }
+    </tr>
+    }
+    
+</table>

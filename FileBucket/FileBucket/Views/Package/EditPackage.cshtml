@@ -1,0 +1,26 @@
+﻿@model FileBucket.Models.package
+
+@{
+    ViewBag.Title = "EditPackage";
+}
+
+<h2>EditPackage</h2>
+
+<a class="btn btn-primary" href="/Package/Index">Go to package list</a>
+<h3 style="color:orange">Be careful. Users of this package will be affected immediately</h3>
+<h5>@ViewBag.msg</h5>
+<form action="/Package/EditPackage" method="post">
+    ID: <input type="hidden" name="id" class="form-control" value=@Model.id>
+
+    Name: <input type="text" name="name" class="form-control" value="@Model.name">
+    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })<br />
+
+    Space Size: <input type="number" name="size" class="form-control" value=@Model.size>
+    @Html.ValidationMessageFor(m => m.size, "", new { @class = "text-danger" })<br />
+
+    Price: <input type="number" name="price" class="form-control" value=@Model.price>
+    @Html.ValidationMessageFor(m => m.price, "", new { @class = "text-danger" })<br />
+
+    <input type="submit" value="Update" class="btn btn-success">
+
+</form>

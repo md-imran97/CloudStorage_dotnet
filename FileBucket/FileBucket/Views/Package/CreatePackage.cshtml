@@ -1,0 +1,21 @@
+﻿@model FileBucket.Models.package
+
+@{
+    ViewBag.Title = "Create Package";
+}
+
+<h2>CreatePackage</h2>
+<td><a class="btn btn-primary" href="/Package/Index">Go to package list</a></td>
+<h4 style="color:orange">@ViewBag.msg</h4>
+<form action="/Package/CreatePackage" method="post">
+    ID: <input type="number" name="id" class="form-control" placeholder="Enter package ID">
+    @Html.ValidationMessageFor(m => m.id, "", new { @class = "text-danger" })<br />
+    Name: <input type="text" name="name" class="form-control" placeholder="Enter package name">
+    @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })<br />
+    Space Size: <input type="number" name="size" class="form-control" placeholder="Enter space size in Bytes">
+    @Html.ValidationMessageFor(m => m.size, "", new { @class = "text-danger" })<br />
+    Price: <input type="number" name="price" class="form-control" placeholder="Enter package price">
+    @Html.ValidationMessageFor(m => m.price, "", new { @class = "text-danger" })<br />
+    <input type="submit" value="Create" class="btn btn-success">
+
+</form>

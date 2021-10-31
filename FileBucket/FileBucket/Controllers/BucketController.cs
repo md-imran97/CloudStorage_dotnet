@@ -12,6 +12,7 @@ namespace FileBucket.Controllers
     public class BucketController : Controller
     {
         // GET: Bucket
+        [UserAuth]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Index(int parent)
         {
@@ -166,7 +167,7 @@ namespace FileBucket.Controllers
                 {
                     return RedirectToAction("sharedDownload","Bucket", new {root=root, parent = parent, child=child, name= sharedFile.name });
                     //sharedDownload(root, parent, child, sharedFile.name);
-                    return View();
+                    //return View();
                 }
                 else
                 {

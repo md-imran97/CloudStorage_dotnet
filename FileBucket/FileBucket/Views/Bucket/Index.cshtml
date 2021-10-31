@@ -1,8 +1,8 @@
 ﻿@model List<FileBucket.Models.cloud>
-
-<h4>Space Size : @(((float)ViewBag.spaceSize / 1048576).ToString("0.00")) MB</h4>
-<h4>Used space : @(((float)ViewBag.usedSpace / 1048576).ToString("0.00")) MB</h4>
-<h4>Available Space : @(((float)ViewBag.availableSpace / 1048576).ToString("0.00")) MB</h4><br />
+<a href="/User/Profile" class="btn btn-primary">My Profile</a><br />
+<h5>Space Size : @(((float)ViewBag.spaceSize / 1048576).ToString("0.00")) MB</h5>
+<h5>Used space : @(((float)ViewBag.usedSpace / 1048576).ToString("0.00")) MB</h5>
+<h5>Available Space : @(((float)ViewBag.availableSpace / 1048576).ToString("0.00")) MB</h5><br />
 
 <h4>Upload File</h4>
 @using (Html.BeginForm("Upload", "Bucket", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -74,7 +74,7 @@
             }
             <td><a class="btn btn-danger" href="/Bucket/Delete?parent=@(file.parent)&child=@(file.child)">Delete</a></td>
 
-            <span id="@(i)" hidden>http://localhost:52458/Bucket/SharePoint?root=@(ViewBag.root)&parent=@(file.parent)&child=@(file.child)</span>
+            <span id="@(i)" type="hidden">http://localhost:52458/Bucket/SharePoint?root=@(ViewBag.root)&parent=@(file.parent)&child=@(file.child)</span>
 
             @if (file.share == 0)
             {

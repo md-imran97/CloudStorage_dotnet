@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FileBucket.UtilityModels;
+using System.Web.Security;
+
 
 namespace FileBucket.Controllers
 {
@@ -56,6 +58,7 @@ namespace FileBucket.Controllers
                         Session["root"] = user.id;
                         Session["parent"] = user.id;
                         Session["name"] = user.name;
+                        FormsAuthentication.SetAuthCookie(user.phone, false);
                         return RedirectToAction("Index", "Bucket",new { parent=user.id });
                     }
                     else
@@ -65,6 +68,7 @@ namespace FileBucket.Controllers
                             Session["phone"] = user.phone;
                             Session["root"] = user.id;
                             Session["name"] = user.name;
+                            FormsAuthentication.SetAuthCookie(user.phone, false);
                             return RedirectToAction("Index", "ControlPanel");
                         }
                         else
@@ -81,17 +85,39 @@ namespace FileBucket.Controllers
                 return View();
         }
 
-        public ActionResult Update()
+        public ActionResult Profile()
         {
+            var root = Convert.ToInt32(Session["root"]);
+            var myInfo = UserHelper.getUser(root);
+            return View(myInfo);
+        }
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            var root = Convert.ToInt32(Session["root"]);
+            var myInfo = UserHelper.getUser(root);
+            return View(myInfo);
+        }
+        [HttpPost]
+        public ActionResult EditProfile(user u)
+        {
+            if(ModelState.IsValid)
+            {
+                UserHelper.updateUser(u);
+                return RedirectToAction("Profile", "User");
+
+            }
             return View();
         }
-
         public ActionResult Delete()
         {
-            return View();
+            var root = Convert.ToInt32(Session["root"]);
+            UserHelper.removeUser(root);
+            Session["root"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Bucket()
+        public ActionResult ChangePassword()
         {
             return View();
         }

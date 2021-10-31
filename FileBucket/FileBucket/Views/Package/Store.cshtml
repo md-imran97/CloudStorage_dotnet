@@ -1,11 +1,11 @@
 ﻿@model List<FileBucket.Models.package>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "store";
 }
 
-<h2>Index</h2>
-<td><a class="btn btn-primary" href="/Package/CreatePackage">Create Package</a></td>
+<h2>Store</h2>
+<td><a class="btn btn-primary" href="/Bucket/Index?parent=@ViewBag.root">Go to Bucket</a></td>
 <table class="table table-striped">
     <tr>
         <th>ID</th>
@@ -15,17 +15,21 @@
         <th>##</th>
         <th>##</th>
     </tr>
-    @foreach(var data in Model)
+    @foreach (var data in Model)
     {
     <tr>
         <td>@data.id</td>
         <td>@data.name</td>
         <td>@(((float)data.size / 1048576).ToString("0.00")) MB</td>
         <td>@data.price $</td>
-        <td><a class="btn btn-primary" href="/Package/EditPackage?id=@(data.id)">Edit</a></td>
-        @if (data.id != 1)
+
+        @if (data.id != ViewBag.packageId)
         {
-            <td><a class="btn btn-danger" href="/Package/Delete?id=@(data.id)">Delete</a></td>
+            <td><a class="btn btn-danger" href="/Package/Subscribe?id=@(data.id)">Subscribe</a></td>
+        }
+        else
+        {
+            <td style="color:forestgreen">Subscribed</td>
         }
     </tr>
     }
