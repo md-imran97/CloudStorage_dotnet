@@ -4,7 +4,15 @@
 
     ViewBag.Title = "Profile";
 }
-<a href="/Bucket/Index?parent=@Model.id" class="btn btn-primary">Bucket</a>
+@if (Model.type == 1)
+{
+    <a href="/Bucket/Index?parent=@Model.id" class="btn btn-primary">Bucket</a>
+}
+else
+{
+    <a href="/ControlPanel/Index" class="btn btn-primary">Home</a>
+}
+    <a href="/User/Signout" class="btn btn-primary">Signout</a>
 <h2>Profile</h2>
 <a href="/User/EditProfile" class="btn btn-primary">Edit Profile</a>
 @if (Model.type == 1)

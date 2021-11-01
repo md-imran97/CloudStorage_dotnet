@@ -48,8 +48,8 @@ namespace FileBucket.Controllers
 
             return View(files);
         }
-        
 
+        [UserAuth]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file,int parent)
@@ -88,6 +88,7 @@ namespace FileBucket.Controllers
             return RedirectToAction("Index", new { parent = parent });
         }
 
+        [UserAuth]
         public FileResult Download( int parent, int child, string name)
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -100,6 +101,7 @@ namespace FileBucket.Controllers
             return File(bytes, "application/octet-stream", name);
         }
 
+        [UserAuth]
         public ActionResult CreateFolder(string folderName, int parent)
         {
             //ViewBag.parent = parent;
@@ -119,6 +121,7 @@ namespace FileBucket.Controllers
             return RedirectToAction("Index", new { parent = parent });
         }
 
+        [UserAuth]
         public ActionResult Delete(int parent, int child)
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -150,6 +153,7 @@ namespace FileBucket.Controllers
             return RedirectToAction("Index", new { parent = parent });
         }
 
+        [UserAuth]
         public ActionResult Share(int parent, int child, int shareType)
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -183,6 +187,7 @@ namespace FileBucket.Controllers
             
         }
 
+        [UserAuth]
         public ActionResult StorageInfo()
         {
             return View();

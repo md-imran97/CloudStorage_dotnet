@@ -12,13 +12,14 @@ namespace FileBucket.Controllers
     public class PackageController : Controller
     {
         // GET: Package
+        [AdminAuth]
         public ActionResult Index()
         {
             var packages = PackageHelper.getAllPackage();
             
             return View(packages);
         }
-
+        [UserAuth]
         public ActionResult Store()
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -29,10 +30,12 @@ namespace FileBucket.Controllers
             return View(packages);
         }
 
+        [AdminAuth]
         public ActionResult CreatePackage()
         {
             return View();
         }
+        [AdminAuth]
         [HttpPost]
         public ActionResult CreatePackage(package p)
         {
@@ -53,7 +56,7 @@ namespace FileBucket.Controllers
             }
             return View();
         }
-
+        [AdminAuth]
         [HttpGet]
         public ActionResult EditPackage(int id)
         {
@@ -61,7 +64,7 @@ namespace FileBucket.Controllers
             return View(pkg);
 
         }
-
+        [AdminAuth]
         [HttpPost]
         public ActionResult EditPackage(package p)
         {
@@ -74,7 +77,7 @@ namespace FileBucket.Controllers
             return RedirectToAction("EditPackage", new { id = p.id });
 
         }
-
+        [UserAuth]
         public ActionResult Subscribe(int id)
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -101,7 +104,7 @@ namespace FileBucket.Controllers
             }
             return View();
         }
-
+        [AdminAuth]
         public ActionResult Delete(int id)
         {
             var pkg = PackageHelper.getPackage(id);

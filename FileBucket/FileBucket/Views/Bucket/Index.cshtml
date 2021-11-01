@@ -1,5 +1,6 @@
 ﻿@model List<FileBucket.Models.cloud>
-<a href="/User/Profile" class="btn btn-primary">My Profile</a><br />
+<a href="/User/Profile" class="btn btn-primary">My Profile</a><br /><br />
+<a href="/Bucket/Index?parent=@ViewBag.root" class="btn btn-primary">Bucket Root</a><br />
 <h5>Space Size : @(((float)ViewBag.spaceSize / 1048576).ToString("0.00")) MB</h5>
 <h5>Used space : @(((float)ViewBag.usedSpace / 1048576).ToString("0.00")) MB</h5>
 <h5>Available Space : @(((float)ViewBag.availableSpace / 1048576).ToString("0.00")) MB</h5><br />

@@ -134,6 +134,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperFunction\AdminAuth.cs" />
+    <Compile Include="HelperFunction\JointAuth.cs" />
     <Compile Include="HelperFunction\UserAuth.cs" />
     <Compile Include="HelperFunction\BucketHelper.cs" />
     <Compile Include="HelperFunction\PackageHelper.cs" />

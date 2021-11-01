@@ -40,6 +40,30 @@ namespace FileBucket.Controllers
         [HttpGet]
         public ActionResult Signin()
         {
+            if(Session["root"] != null)
+            {
+                var root = Convert.ToInt32(Session["root"]);
+                var user = UserHelper.getUser(root);
+                if(user != null)
+                {
+                    if(user.type==1)
+                    {
+                        return RedirectToAction("Index", "Bucket", new { parent = user.id });
+                    }
+                   else if(user.type == 0 && user.status==1)
+                    {
+                        return RedirectToAction("Index", "ControlPanel");
+                    }
+                    else
+                    {
+                        return View();
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
             return View();
         }
         [HttpPost]
@@ -85,12 +109,14 @@ namespace FileBucket.Controllers
                 return View();
         }
 
+        [JointAuth]
         public ActionResult Profile()
         {
             var root = Convert.ToInt32(Session["root"]);
             var myInfo = UserHelper.getUser(root);
             return View(myInfo);
         }
+        [JointAuth]
         [HttpGet]
         public ActionResult EditProfile()
         {
@@ -98,6 +124,7 @@ namespace FileBucket.Controllers
             var myInfo = UserHelper.getUser(root);
             return View(myInfo);
         }
+        [JointAuth]
         [HttpPost]
         public ActionResult EditProfile(user u)
         {
@@ -109,6 +136,7 @@ namespace FileBucket.Controllers
             }
             return View();
         }
+        [JointAuth]
         public ActionResult Delete()
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -116,9 +144,15 @@ namespace FileBucket.Controllers
             Session["root"] = null;
             return RedirectToAction("Index", "Home");
         }
-
-        public ActionResult ChangePassword()
+        [JointAuth]
+        public ActionResult Signout()
         {
+            Session["phone"] = null;
+            Session["root"] = null;
+            Session["parent"] = null;
+            Session["name"] = null;
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Signin", "User");
             return View();
         }
     }

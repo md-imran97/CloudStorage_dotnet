@@ -10,7 +10,7 @@ namespace FileBucket.Controllers
     public class ControlPanelController : Controller
     {
         // GET: ControlPanel
-        [UserAuth(Roles = "General user")]
+        [AdminAuth]
         public ActionResult Index()
         {
             var root = Convert.ToInt32(Session["root"]);
@@ -18,13 +18,13 @@ namespace FileBucket.Controllers
             var users = UserHelper.getAllUser();
             return View(users);
         }
-
+        [AdminAuth]
         public ActionResult Approval(int root)
         {
             UserHelper.adminApproval(root);
             return RedirectToAction("Index");
         }
-
+        [AdminAuth]
         public ActionResult Delete(int root)
         {
             UserHelper.removeUser(root);
